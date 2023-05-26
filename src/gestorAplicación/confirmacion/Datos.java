@@ -1,5 +1,10 @@
 package gestorAplicacion.confirmacion;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;

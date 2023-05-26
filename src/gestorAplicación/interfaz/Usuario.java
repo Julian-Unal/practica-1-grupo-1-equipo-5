@@ -1,4 +1,10 @@
 package gestorAplicacion.interfaz;
+
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -96,7 +102,6 @@ public class Usuario implements Serializable{
 	}
 
 	//Se realiza un retiro validando su consistencia origen del usuario y se genera una salida en el historial
-
 	public boolean nuevoRetiro(Retiro retiro) {
 
         if(retiro.getCuentaOrigen()!=null){
@@ -134,7 +139,6 @@ public class Usuario implements Serializable{
 	}
 
 	//Se realiza una separacion del dinero del usuario por divisas guardada en bolsillos, colchones y metas
-
 	public int getDineroCuenta() {
 
 		int total = 0;

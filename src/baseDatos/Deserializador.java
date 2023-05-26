@@ -1,5 +1,10 @@
 package baseDatos;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -16,6 +21,12 @@ public class Deserializador {
         Deserializador.rutaTemp.mkdirs();
     }
 
+    /**
+     * It reads the files, matches them with their corresponding data
+     * types and methods in the `Datos` class, and invokes those methods
+     * to deserialize the data.
+     * 
+     */
     public static void deserializar() {
         File[] docs = rutaTemp.listFiles() != null ? rutaTemp.listFiles() : new File[0];
         FileInputStream fis;

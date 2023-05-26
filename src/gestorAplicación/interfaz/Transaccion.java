@@ -1,4 +1,10 @@
 package gestorAplicacion.interfaz;
+
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.time.LocalDate;
 import java.io.Serializable;
 

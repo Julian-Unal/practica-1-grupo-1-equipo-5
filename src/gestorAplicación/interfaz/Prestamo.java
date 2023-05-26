@@ -1,5 +1,10 @@
 package gestorAplicacion.interfaz;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.time.LocalDate;
 
 
@@ -71,7 +76,7 @@ public class Prestamo implements Abonable{
      * 
      */
     private static double calcularPeriodos(double cantidadQuePodraPagar, double posibleCantidadPrestamo) {
-        double periodos = Math.log( Math.abs( 1 - ((Prestamo.tasa*posibleCantidadPrestamo) / cantidadQuePodraPagar) )) / Math.log(Math.abs(1+Prestamo.tasa));
+        double periodos = Math.abs(Math.log( Math.abs( 1 - ((Prestamo.tasa*posibleCantidadPrestamo) / cantidadQuePodraPagar) )) / Math.log(Math.abs(1+Prestamo.tasa)));
         return Math.round(periodos);
     }
 
@@ -107,6 +112,19 @@ public class Prestamo implements Abonable{
         return totalPagado;
     }
 
+    /**
+     * Allows a user to make a payment towards a loan (`Prestamo`)
+     * using a `Cuenta` object as the payment source.
+     * It first checks if the payment source has enough funds to
+     * cover the payment amount, and if so, it subtracts the payment
+     * amount from the payment source and adds it to the `totalPagado`
+     * attribute of the loan. 
+     * If the total amount paid towards the loan is greater than or
+     * equal to the loan amount, the `pagado` attribute is set to `true`.
+     * The method returns a `Boolean` value indicating whether the payment
+     * was successful or not.
+     * 
+     */
     @Override
     public Object abonar(double monto, Cuenta origen) {
         if (origen.retirar(monto)) {
@@ -121,6 +139,19 @@ public class Prestamo implements Abonable{
         return null;
     }
 
+    /**
+     * Allows a user to make a payment towards a loan using a
+     * `Categoria` object as the payment source.
+     * It first checks if the payment source has enough funds
+     * to cover the payment amount, and if so, it subtracts the
+     * payment amount from the payment source and adds it to the
+     * `totalPagado` attribute of the loan.
+     * If the total amount paid towards the loan is greater than
+     * or equal to the loan amount, the `pagado` attribute is set to `true`.
+     * The method returns an array of doubles indicating the amount
+     * paid towards the loan. If the payment was unsuccessful, it returns `null`.
+     * 
+     */
     @Override
     public Object abonar(double monto, Categoria origen) {
         double[] arreglo = new double[1];

@@ -1,4 +1,10 @@
 package gestorAplicacion.interfaz;
+
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.time.LocalDate;
 
 public class Ahorro extends Cuenta{
@@ -14,6 +20,16 @@ public class Ahorro extends Cuenta{
 		setUsuario(usuario);
 		this.fechaRetiro=fechaRetiro;
 	}
+ 	/**
+  	* Overriding
+	* It checks if the `fechaRetiro` attribute of the `Ahorro` object
+	* is before the current date, and if so, it calls the `retirar` 
+	* method from the `Cuenta` class to withdraw the specified `monto`
+	* from the account.
+	* If the `fechaRetiro` is after the current date, it returns
+	* `false` indicating that the withdrawal cannot be made.
+  	* 
+  	*/
 	public boolean retirar(double monto){
 		if(this.fechaRetiro.isBefore(LocalDate.now())){
 			return super.retirar(monto);

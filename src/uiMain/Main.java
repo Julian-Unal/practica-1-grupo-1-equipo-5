@@ -1,4 +1,10 @@
 package uiMain;
+
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +38,13 @@ public class Main {
     static Usuario login() {
         Deserializador.deserializar();
         try {
-        return Datos.getUsuarios().get(0);
+            return Datos.getUsuarios().get(0);
 
         } catch (Exception e) {
             return null;
         }
     }
+
     public static void main(String[] args) throws IOException {
         Usuario usuario = login();
         if (usuario == null) {
@@ -110,7 +117,7 @@ public class Main {
                 System.out.println("");
                 System.out.println("Dinero total: ");
                 System.out.println(dineroTot);
-                
+
                 System.out.println("");
                 System.out.println("");
             }
@@ -131,30 +138,30 @@ public class Main {
         boolean bool;
         switch (option) {
             case 1 -> {
-                List<Categoria> list=new ArrayList<>();
+                List<Categoria> list = new ArrayList<>();
                 System.out.println("");
                 System.out.println("Bolsillo: ");
                 bool = listarBolsillos(usuario);
 
-                for(Categoria bolsillos:Categoria.values()){
-                  list.add(bolsillos);
-                } 
+                for (Categoria bolsillos : Categoria.values()) {
+                    list.add(bolsillos);
+                }
 
                 if (bool) {
                     opc = validarEntradaInt(8, true, 1, true) - 1;
-                    Categoria bolsillo=list.get(opc);
+                    Categoria bolsillo = list.get(opc);
 
                     double cantidad;
                     System.out.println("");
                     System.out.println("Digite la cantidad que desea ingresar en (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
                     cantidad = Verificacion.validarEntradaDouble(10000000, true, 0, false);
-                    new Ingreso((int)cantidad, LocalDate.now(), bolsillo);
+                    new Ingreso((int) cantidad, LocalDate.now(), bolsillo);
                     System.out.println("");
-                    System.out.println("Su nuevo saldo es de " + String.format("%.2f",(double)bolsillo.getSaldo()));
+                    System.out.println("Su nuevo saldo es de " + String.format("%.2f", (double) bolsillo.getSaldo()));
                     System.out.println("");
                     System.out.println("");
 
-                  } 
+                }
             }
             case 2 -> {
                 List<Cuenta> list = new ArrayList<>();
@@ -162,23 +169,23 @@ public class Main {
                 System.out.println("Ahorros: ");
                 bool = Listador.listarAhorros(usuario);
                 list.addAll(usuario.getAhorros());
-            
-             if (bool) {
-               opc = validarEntradaInt(list.size(), true, 1, true) - 1;
-               Cuenta cuenta=list.get(opc);
 
-               double cantidad;
-               System.out.println("");
-               System.out.println("Digite la cantidad que desea ingresar en (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
-               cantidad = Verificacion.validarEntradaDouble(10000000, true, 0, false);
-               Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), cuenta);
-               usuario.nuevoIngreso(ingreso);
-               System.out.println("");
-               System.out.println("Su nuevo saldo es de " + String.format("%.2f",cuenta.getSaldo()));
-               System.out.println("");
+                if (bool) {
+                    opc = validarEntradaInt(list.size(), true, 1, true) - 1;
+                    Cuenta cuenta = list.get(opc);
 
-             }
-            } 
+                    double cantidad;
+                    System.out.println("");
+                    System.out.println("Digite la cantidad que desea ingresar en (utilice ',' para el símbolo decimal) (Cantidad maxima 10000000): ");
+                    cantidad = Verificacion.validarEntradaDouble(10000000, true, 0, false);
+                    Ingreso ingreso = new Ingreso(cantidad, LocalDate.now(), cuenta);
+                    usuario.nuevoIngreso(ingreso);
+                    System.out.println("");
+                    System.out.println("Su nuevo saldo es de " + String.format("%.2f", cuenta.getSaldo()));
+                    System.out.println("");
+
+                }
+            }
         }
     }
 
@@ -196,27 +203,27 @@ public class Main {
         boolean bool = false;
         switch (option) {
             case 1 -> {
-                Categoria destino; 
+                Categoria destino;
                 Object origen;
                 List<Categoria> list = new ArrayList<>();
                 System.out.println("");
                 System.out.println("Bolsillos: ");
                 bool = listarBolsillos(usuario);
 
-                for(Categoria bolsillos:Categoria.values()){
+                for (Categoria bolsillos : Categoria.values()) {
                     list.add(bolsillos);
-                } 
-                
+                }
+
                 if (bool) {
                     int opc = validarEntradaInt(8, true, 1, true) - 1;
                     destino = list.get(opc);
                     origen = seleccionarCuentaDeOrigen(usuario, destino);
 
-                    if (origen instanceof Cuenta){
-                        Cuenta origen2=(Cuenta)origen;
+                    if (origen instanceof Cuenta) {
+                        Cuenta origen2 = (Cuenta) origen;
                         if (origen != null && origen2.getSaldo() > 0) {
                             System.out.println("");
-                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f",origen2.getSaldo()) + ")");
+                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f", origen2.getSaldo()) + ")");
                             double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
 
                             boolean retirado = origen2.retirar(monto);
@@ -229,30 +236,30 @@ public class Main {
                                 System.out.println("");
                                 return;
                             }
-                            destino.setSaldo(destino.getSaldo()+monto);
+                            destino.setSaldo(destino.getSaldo() + monto);
                             System.out.println("");
-                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f",origen2.getSaldo()));
-                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f",destino.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f", origen2.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f", destino.getSaldo()));
                             System.out.println("");
                         } else {
                             System.out.println("");
                             System.out.println("");
-            	            System.out.println("La cuenta no existe o no contiene dinero");
+                            System.out.println("La cuenta no existe o no contiene dinero");
                             System.out.println("");
                         }
 
                     }
 
-                    if (origen instanceof Categoria){
-                        Categoria origen2=(Categoria)origen;
+                    if (origen instanceof Categoria) {
+                        Categoria origen2 = (Categoria) origen;
                         if (origen != null && origen2.getSaldo() > 0) {
                             System.out.println("");
-                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f",origen2.getSaldo()) + ")");
+                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f", origen2.getSaldo()) + ")");
                             double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
 
-                            boolean retirado=true;
-                            if (monto>origen2.getSaldo()){
-                              retirado = false;
+                            boolean retirado = true;
+                            if (monto > origen2.getSaldo()) {
+                                retirado = false;
                             }
 
                             if (!retirado) {
@@ -263,16 +270,16 @@ public class Main {
                                 System.out.println("");
                                 return;
                             }
-                            origen2.setSaldo(origen2.getSaldo()-monto);
-                            destino.setSaldo(destino.getSaldo()+monto);
+                            origen2.setSaldo(origen2.getSaldo() - monto);
+                            destino.setSaldo(destino.getSaldo() + monto);
                             System.out.println("");
-                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f",origen2.getSaldo()));
-                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f",destino.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f", origen2.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f", destino.getSaldo()));
                             System.out.println("");
-                        }else {
+                        } else {
                             System.out.println("");
                             System.out.println("");
-            	            System.out.println("La cuenta no existe o no contiene dinero");
+                            System.out.println("La cuenta no existe o no contiene dinero");
                             System.out.println("");
                         }
 
@@ -288,17 +295,17 @@ public class Main {
                 System.out.println("Ahorros: ");
                 bool = Listador.listarAhorros(usuario);
                 list.addAll(usuario.getAhorros());
-        
+
                 if (bool) {
                     int opc = validarEntradaInt(list.size(), true, 1, true) - 1;
                     destino = list.get(opc);
                     origen = seleccionarCuentaDeOrigen(usuario, destino);
 
-                    if (origen instanceof Cuenta){
-                        Cuenta origen2=(Cuenta)origen;
+                    if (origen instanceof Cuenta) {
+                        Cuenta origen2 = (Cuenta) origen;
                         if (origen != null && origen2.getSaldo() > 0) {
                             System.out.println("");
-                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f",origen2.getSaldo()) + ")");
+                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f", origen2.getSaldo()) + ")");
                             double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
 
                             boolean retirado = origen2.retirar(monto);
@@ -311,28 +318,28 @@ public class Main {
                             }
                             destino.depositar(monto);
                             System.out.println("");
-                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f",origen2.getSaldo()));
-                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f",destino.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f", origen2.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f", destino.getSaldo()));
                             System.out.println("");
-                        }else {
+                        } else {
                             System.out.println("");
                             System.out.println("");
-            	            System.out.println("La cuenta no existe o no contiene dinero");
+                            System.out.println("La cuenta no existe o no contiene dinero");
                             System.out.println("");
                         }
 
                     }
 
-                    if (origen instanceof Categoria){
-                        Categoria origen2=(Categoria)origen;
+                    if (origen instanceof Categoria) {
+                        Categoria origen2 = (Categoria) origen;
                         if (origen != null && origen2.getSaldo() > 0) {
                             System.out.println("");
-                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f",origen2.getSaldo()) + ")");
+                            System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f", origen2.getSaldo()) + ")");
                             double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
 
-                            boolean retirado=true;
-                            if (monto>origen2.getSaldo()){
-                              retirado = false;
+                            boolean retirado = true;
+                            if (monto > origen2.getSaldo()) {
+                                retirado = false;
                             }
 
                             if (!retirado) {
@@ -341,20 +348,20 @@ public class Main {
                                 System.err.println("No fue posible retirar");
                                 return;
                             }
-                            origen2.setSaldo(origen2.getSaldo()-monto);
+                            origen2.setSaldo(origen2.getSaldo() - monto);
                             destino.depositar(monto);
                             System.out.println("");
-                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f",origen2.getSaldo()));
-                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f",destino.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de origen de: " + String.format("%.2f", origen2.getSaldo()));
+                            System.out.println("Nuevo saldo de la cuenta de destino de: " + String.format("%.2f", destino.getSaldo()));
                             System.out.println("");
-                        }else {
+                        } else {
                             System.out.println("");
                             System.out.println("");
-            	            System.out.println("La cuenta no existe o no contiene dinero");
+                            System.out.println("La cuenta no existe o no contiene dinero");
                         }
 
                     }
-                    
+
                 }
             }
         }
@@ -373,7 +380,7 @@ public class Main {
             System.out.println("");
             option = validarEntradaInt(3, true, 1, true);
             boolean bool = false;
-            
+
             switch (option) {
                 case 1 -> {
                     List<Categoria> list = new ArrayList<>();
@@ -381,7 +388,7 @@ public class Main {
                     System.out.println("Bolsillos: ");
                     bool = listarBolsillos(usuario);
 
-                    for(Categoria bolsillos:Categoria.values()){
+                    for (Categoria bolsillos : Categoria.values()) {
                         list.add(bolsillos);
                     }
 
@@ -391,13 +398,13 @@ public class Main {
                         if (origen == destino) {
                             System.out.println("");
                             System.out.println("NO PUEDES ENVIAR EL DINERO AL MISMO LUGAR");
-                             repet = true;
+                            repet = true;
                         } else {
                             return origen;
                         }
                     }
-                    
-                
+
+
                 }
                 case 2 -> {
                     List<Cuenta> list = new ArrayList<>();
@@ -420,7 +427,7 @@ public class Main {
                     }
                 }
             }
-            
+
         } while (repet);
         return null;
     }
@@ -441,64 +448,62 @@ public class Main {
         }
         Object origen = seleccionarCuentaDeOrigen(usuario, destino);
 
-        if (origen instanceof Categoria){
-            boolean retirado=true;
-            Categoria origen2=(Categoria) origen;
-             if (origen != null && origen2.getSaldo()>0) {
+        if (origen instanceof Categoria) {
+            boolean retirado = true;
+            Categoria origen2 = (Categoria) origen;
+            if (origen != null && origen2.getSaldo() > 0) {
                 System.out.println("");
-                System.out.println("Ingrese la cantidad a retirar (entre 0 y " + String.format("%.2f",origen2.getSaldo()) + ")");
+                System.out.println("Ingrese la cantidad a retirar (entre 0 y " + String.format("%.2f", origen2.getSaldo()) + ")");
                 double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
-                if (monto>origen2.getSaldo()){
+                if (monto > origen2.getSaldo()) {
                     retirado = false;
                 }
                 if (retirado) {
-                    origen2.setSaldo(origen2.getSaldo()-monto);
+                    origen2.setSaldo(origen2.getSaldo() - monto);
                     System.out.println("");
                     System.out.println("Retiro Exitoso");
-                    System.out.println("Nuevo saldo en " + origen2.name() + " es: " + String.format("%.2f",origen2.getSaldo()));
+                    System.out.println("Nuevo saldo en " + origen2.name() + " es: " + String.format("%.2f", origen2.getSaldo()));
                     System.out.println("");
-                }
-                else{
+                } else {
                     System.out.println("");
                     System.out.println("");
                     System.out.println("Retiro Fallido");
                     System.out.println("");
                 }
 
-            }else {
-                System.out.println("");
-                System.out.println("");
-        	    System.out.println("La cuenta no existe o no contiene dinero");
-                System.out.println("");
-            }
-        } 
-        if (origen instanceof Cuenta){
-            Cuenta origen2=(Cuenta) origen;
-            boolean retirado=true;
-            if (origen != null && origen2.getSaldo()>0) {
-                System.out.println("");
-                System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f",origen2.getSaldo()) + ")");
-                double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
-                retirado = origen2.retirar(monto);
-                if (retirado) {
-                    System.out.println("");
-                    System.out.println("Retiro Exitoso");
-                    System.out.println("Nuevo saldo en " + origen2.getNombre() + " es: " + String.format("%.2f",origen2.getSaldo()));
-                    System.out.println("");
-                }
-                else{
-                    System.out.println("");
-                    System.out.println("");
-                    System.out.println("Retiro Fallido");
-                    System.out.println("");
-                }
-            }else {
+            } else {
                 System.out.println("");
                 System.out.println("");
                 System.out.println("La cuenta no existe o no contiene dinero");
                 System.out.println("");
             }
-        }     
+        }
+        if (origen instanceof Cuenta) {
+            Cuenta origen2 = (Cuenta) origen;
+            boolean retirado = true;
+            if (origen != null && origen2.getSaldo() > 0) {
+                System.out.println("");
+                System.out.println("Ingrese la cantidad a transferir (entre 0 y " + String.format("%.2f", origen2.getSaldo()) + ")");
+                double monto = Verificacion.validarEntradaDouble(origen2.getSaldo(), true, 0, false);
+                retirado = origen2.retirar(monto);
+                if (retirado) {
+                    System.out.println("");
+                    System.out.println("Retiro Exitoso");
+                    System.out.println("Nuevo saldo en " + origen2.getNombre() + " es: " + String.format("%.2f", origen2.getSaldo()));
+                    System.out.println("");
+                } else {
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println("Retiro Fallido");
+                    System.out.println("");
+                }
+            } else {
+                System.out.println("");
+                System.out.println("");
+                System.out.println("La cuenta no existe o no contiene dinero");
+                System.out.println("");
+            }
+        }
     }
 
     //OPCIÓN5
@@ -506,7 +511,7 @@ public class Main {
     static void agregarAhorro(Usuario usuario) {
         int fecha;
         String nombre;
-        
+
         System.out.println("");
         System.out.println("Escriba el nombre que desea asignarle al ahorro: ");
         nombre = Verificacion.validarEntradaTexto(true);
@@ -533,7 +538,7 @@ public class Main {
     private static void agregarMeta(Usuario usuario) {
         String nombre;
         double objetivo;
-        
+
         System.out.println("");
         System.out.println("Escriba el nombre que desea asignarle a la meta: ");
         nombre = Verificacion.validarEntradaTexto(true);
@@ -562,7 +567,7 @@ public class Main {
         System.out.println("");
         opcion = validarEntradaInt(4, true, 1, true);
         boolean bool = false;
-       
+
         switch (opcion) {
             case 1 -> {
                 List<Categoria> list = new ArrayList<>();
@@ -570,7 +575,7 @@ public class Main {
                 System.out.println("Bolsillos: ");
                 bool = Listador.listarBolsillos(usuario);
 
-                for(Categoria bolsillos:Categoria.values()){
+                for (Categoria bolsillos : Categoria.values()) {
                     list.add(bolsillos);
                 }
 
@@ -604,7 +609,7 @@ public class Main {
                 }
             }
         }
-        
+
     }
 
     //Condicional para ver que opción se va a modificar segun el usuario
@@ -630,7 +635,7 @@ public class Main {
 
         switch (opcion) {
             case 1:
-            System.out.println("");
+                System.out.println("");
                 System.out.println("Nuevo presupuesto:");
                 double nuevoPrusupuesto = Verificacion.validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
                 bolsillo.setPresupuesto(nuevoPrusupuesto);
@@ -689,7 +694,7 @@ public class Main {
                 System.out.println("");
                 System.out.println("Ingrese la cantidad que desa modificar (entre 1 y " + limite + ")");
                 total = Verificacion.validarEntradaInt(limite, true, 1, true);
-                
+
                 System.out.println("");
                 System.out.println("¿Aumentar o reducir?");
                 System.out.println("1. Aumentar");
@@ -722,7 +727,6 @@ public class Main {
         System.out.println("MODIFICACION REALIZADA CON EXITO");
         System.out.println("");
     }
-
     //Menú para modificar nombre o nuevo objetivo de una meta
     static void modificar(Usuario usuario, Meta meta) {
         int opcion;
@@ -737,7 +741,7 @@ public class Main {
 
         switch (opcion) {
             case 1:
-            System.out.println("");
+                System.out.println("");
                 System.out.println("Nuevo nombre:");
                 String nombre = Verificacion.validarEntradaTexto(true);
                 meta.setNombre(nombre);
@@ -789,15 +793,15 @@ public class Main {
         System.out.println("");
         System.out.println("¿Cuántos hijos tiene?: ");
         int hijos = validarEntradaInt(25, true, 0, true);
-        
+
         System.out.println("");
         System.out.println("¿Cuántos Años tiene usted?");
         int edad = validarEntradaInt(120, true, 18, true);
-        
+
         System.out.println("");
         System.out.println("Digite su ingreso mensual utilice ',' para el simbolo decimal: ");
         double ingresoMensual = validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
-        
+
         System.out.println("");
         System.out.println("¿Desea dar alguna garantia para reducir la tasa de interes?");
         System.out.println("1. Si");
@@ -815,41 +819,41 @@ public class Main {
         double posibleCantidadPrestamo = Estadistica.calcularPosibleCantidadPrestamo(usuario, ingresoMensual, edad, hijos, opcGarantia);
 
         if (posibleCantidadPrestamo >0){
-        System.out.println("");
-        System.out.println("¿Cuanto dinero gasta en vivienda? (utilice ',' para el simbolo decimal): ");
-        double gastoVivienda = validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
+            System.out.println("");
+            System.out.println("¿Cuanto dinero gasta en vivienda? (utilice ',' para el simbolo decimal): ");
+            double gastoVivienda = validarEntradaDouble(Double.MAX_VALUE, true, 0, false);
 
-        double[] infoCuotas = Prestamo.calcularCuotas(posibleCantidadPrestamo, ingresoMensual, gastoVivienda);
-        if (infoCuotas[0] == 0) {
-            System.out.println("");
-            System.out.println("");
-            System.out.println("Lo sentimos no eres apto para el prestamo");
-            System.out.println("PRESTAMO RECHAZADO/CANCELADO");
-            System.out.println("");
-            return;
-        }
-        
-        System.out.println("");
-        System.out.println("Se generaria un prestamo de un total de " + String.format("%.2f",posibleCantidadPrestamo));
-        System.out.println("a " + infoCuotas[0] + " periodos(meses)");
-        System.out.println("con una cuota de " + infoCuotas[1]);
-        System.out.println("");
-        System.out.println("Aceptas estos terminos?");
-        System.out.println("1 Si");
-        System.out.println("2 No");
-        System.out.println("");
-        int opt = validarEntradaInt(2, true, 1, true);
-        switch (opt) {
-            case 1:
-                AceptadoPrestamo(usuario, posibleCantidadPrestamo, (int) infoCuotas[0], opcGarantia);
-                break;
-            case 2:
+            double[] infoCuotas = Prestamo.calcularCuotas(posibleCantidadPrestamo, ingresoMensual, gastoVivienda);
+            if (infoCuotas[0] == 0) {
                 System.out.println("");
                 System.out.println("");
-                System.out.println("PRESTAMO CANCELADO");
+                System.out.println("Lo sentimos no eres apto para el prestamo");
+                System.out.println("PRESTAMO RECHAZADO/CANCELADO");
                 System.out.println("");
-                break;
-        }
+                return;
+            }
+
+            System.out.println("");
+            System.out.println("Se generaria un prestamo de un total de " + String.format("%.2f",posibleCantidadPrestamo));
+            System.out.println("a " + infoCuotas[0] + " periodos(meses)");
+            System.out.println("con una cuota de " + infoCuotas[1]);
+            System.out.println("");
+            System.out.println("Aceptas estos terminos?");
+            System.out.println("1 Si");
+            System.out.println("2 No");
+            System.out.println("");
+            int opt = validarEntradaInt(2, true, 1, true);
+            switch (opt) {
+                case 1:
+                    AceptadoPrestamo(usuario, posibleCantidadPrestamo, (int) infoCuotas[0], opcGarantia);
+                    break;
+                case 2:
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println("PRESTAMO CANCELADO");
+                    System.out.println("");
+                    break;
+            }
         }
         else{
             System.out.println("");
@@ -865,19 +869,19 @@ public class Main {
     //Si el usuario es apto para un prestado a largo plazo se le solicitan unos datos para guardar como garantía, se genera el préstamo y se agrega a los préstamos realizados por el usuario
     static void AceptadoPrestamo(Usuario usuario, double dineroSolicitado, int periodos, int opcGarantia) {
         String[] referencia = new String[2];
-        
+
         System.out.println("");
         System.out.println("Escriba el nombre de una referencia: ");
         referencia[0] = validarEntradaTexto(true);
-        
+
         System.out.println("");
         System.out.println("Escriba el numero telefonico de la referencia: ");
         referencia[1] = validarEntradaTexto(true);
-        
+
         System.out.println("");
         System.out.println("Escoja el bolsillo al que se le enviará el dinero");
         listarBolsillos(usuario);
-        
+
         int bolsilloSeleccionado = validarEntradaInt(Categoria.values().length, true, 1, true) - 1;
 
         List<Categoria> list = new ArrayList<>();
@@ -940,7 +944,7 @@ public class Main {
         for (Categoria bolsillos : Categoria.values()) {
             list.add(bolsillos);
         }
-        
+
         System.out.println("");
         System.out.println("Seleccione el Bolsillo desde el que va a abonar");
         listarBolsillos(usuario);
@@ -951,7 +955,7 @@ public class Main {
             double monto = Verificacion.validarEntradaDouble(bolsillo.getSaldo(), true, 0, false);
             Object resp = abonable.abonar(monto, bolsillo);
             boolean bol2;
-            
+
             if (resp != null) {
                 if (abonable instanceof Meta meta && resp instanceof Transaccion movimiento) {
                     System.out.println("");
@@ -973,7 +977,7 @@ public class Main {
                     } else {
                         System.out.println("");
                         System.out.println("Restante para cumplir la meta de: " + String.format("%.2f", meta.getObjetivo() - meta.getSaldo()));
-                     }
+                    }
                 } else if (abonable instanceof Prestamo prestamo && resp instanceof double[] dou) {
                     if (prestamo.isPagado()) {
                         System.out.println("");
@@ -998,6 +1002,6 @@ public class Main {
             System.out.println("");
             System.out.println("La cuenta no existe o no contiene dinero");
         }
-        
+
     }
 }

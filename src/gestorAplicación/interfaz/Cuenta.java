@@ -1,5 +1,10 @@
 package gestorAplicacion.interfaz;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.io.Serializable;
 
 public abstract class Cuenta implements Serializable{
@@ -57,6 +62,14 @@ public abstract class Cuenta implements Serializable{
         saldo = saldo + cantidad;
     }
 
+	/**
+	 * Substracts a given amount (`cantidad`) from the account
+	 * balance (`saldo`) if the amount is less than or equal to
+	 * the current balance.
+	 * It returns a boolean value indicating whether the withdrawal
+	 * was successful.
+	 * 
+	 */
     public boolean retirar(double cantidad) {
     	if(cantidad<=saldo) {
     		saldo = saldo - cantidad;

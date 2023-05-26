@@ -1,5 +1,10 @@
 package gestorAplicacion.interfaz;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.io.Serializable;
 
 public enum Categoria implements Serializable{

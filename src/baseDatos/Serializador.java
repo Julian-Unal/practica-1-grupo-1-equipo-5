@@ -1,5 +1,10 @@
 package baseDatos;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +21,15 @@ public class Serializador {
         Serializador.rutaTemp.mkdirs();
     }
 
+    /**
+     * Is responsible for serializing the data of the `Datos` class into files.
+     * It creates files for each type of data specified in the `filesList`
+     * attribute of the `Datos` class, and then writes the serialized data
+     * into those files using an `ObjectOutputStream`.
+     * The method uses reflection to invoke the appropriate method in the
+     * `Datos` class to obtain the data to be serialized.
+     * 
+     */
     public static void serializar() {
         crearArchivos();
         FileOutputStream fos;

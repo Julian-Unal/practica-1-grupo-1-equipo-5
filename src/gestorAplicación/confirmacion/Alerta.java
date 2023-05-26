@@ -1,4 +1,10 @@
 package gestorAplicacion.confirmacion;
+
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import gestorAplicacion.interfaz.Categoria;
 
 public class Alerta {

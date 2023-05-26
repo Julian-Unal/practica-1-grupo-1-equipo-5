@@ -1,11 +1,22 @@
 package gestorAplicacion.interfaz;
 
+// Ana Guarín
+// Isabela Hernandez
+// Cristian Menaa
+// Julián Álvarez
+
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.Double.valueOf;
 
 public class Estadistica {
 
+    /**
+     * Calculates the possible loan amount that a user
+     * can get based on their income, age, number of children,
+     * and type of collateral they can provide. 
+     *  
+     */
     public static double calcularPosibleCantidadPrestamo(Usuario usuario, double ingresos, int edad, int hijos, int opcGarantia) {
         if (!usuario.getAhorros().isEmpty()){
             double promedioAhorros = calcularPromedioAhorros(usuario);
@@ -16,6 +27,15 @@ public class Estadistica {
             return promediarVariablesDelUsuario(ingresos, 0, edad, hijos, opcGarantia);
         }
     }
+
+    /**
+     * Is calculating the average savings of a given `Usuario`
+     * object by iterating over their list of `Ahorro` objects
+     * and summing up their `saldo` values. The total sum is
+     * then divided by the number of `Ahorro` objects to get
+     * the average savings.
+     * 
+     */
     private static double calcularPromedioAhorros(Usuario usuario) {
         AtomicReference<Double> totalAhorros = new AtomicReference<>((double) 0);
         usuario.getAhorros().stream().forEach(ahorro -> totalAhorros.updateAndGet(v -> valueOf(v + ahorro.getSaldo())));
@@ -27,6 +47,12 @@ public class Estadistica {
         return promedioAhorros;
     }
 
+    /**
+     * Is calculating the possible loan amount that a user can
+     * get based on their income, age, number of children, and
+     * type of collateral they can provide.
+     * 
+     */
     private static double promediarVariablesDelUsuario(double ingresos, double promedioAhorros, int edad, int hijos, int opcGarantia) {
         // puntaje
         int multiplicadorCantidadAPrestar = 3;
